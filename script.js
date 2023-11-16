@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 
 // JavaScript code for an interactive world map using D3.js
 
@@ -45,7 +45,7 @@ d3.json("continents.geojson").then(data => {
            alert("Clicked on " + d.propeties.continent);
        });
 });
-=======
+
 // Her hentes data fra plastik fate
 fetch('http://localhost:3001/AME_f')
     .then(response => response.json())
@@ -125,4 +125,4 @@ fetch('http://localhost:3001/Ocea_eo')
     
     console.log(Oceania_emit_ocean);
     });
->>>>>>> a555bc6a66e5a0f42dd6af106164b602d23a6d16
+
