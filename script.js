@@ -120,17 +120,17 @@ fetch('http://localhost:3001/Ocea_eo')
    
     // Sti-generatoren bruges nu til at konvertere den geografiske data til SVG-stier, så de kan tegnes på kortet
     svg.selectAll("path")
-      .data(continentsData)
+      .data(continentsData) // Dataen indlæses
       .enter()
-      .append("g")
-      .attr("class", "continent")
-      .attr("continentFile", d => d.features[0].properties.continent)  
+      .append("g") // Dataen tilføjes til "g"
+      .attr("class", "continent") // Klassen "continent" tilføjes til hver af de nye "g"
+      .attr("continentFile", d => d.features[0].properties.continent) // Der tilføjes en attribut med navnet "continentFile", som returnere vædien af det valgt lands kontinent  
       .selectAll("path")
-      .data(d => d.features)
+      .data(d => d.features) //Hvert lands features bindes nu på den geografiske data 
       .enter()
-      .append("path")
-      .attr("d", path)
-      .attr("fill", defaultColor)
+      .append("path") // Der tilføjes nu et nyt path element
+      .attr("d", path) // Attributten "d" tilføjes til det nye path element
+      .attr("fill", defaultColor) //Attributten "fill" sættes på det nye path element, og sættes til defaultColor
       .on("click", function (event, d) {
         const continent = d3.select(this.parentNode).attr("continentFile");
 
@@ -141,5 +141,5 @@ fetch('http://localhost:3001/Ocea_eo')
         d3.selectAll(`.continent[continentFile="${continent}"] path`).attr("fill", continentColors[continent]);
       });
   }).catch(error => {
-    console.error("Error loading GeoJSON files:", error);
+    console.error("Fejl i indlæsning af GeoJSON filen:", error);
   });
