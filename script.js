@@ -78,6 +78,7 @@ fetch('http://localhost:3001/Ocea_eo')
     console.log(Oceania_emit_ocean);
     });
 
+
 // Her defineres højden og bredden for svg-elementet
   const width = 1400;
   const height = 800;
@@ -99,15 +100,15 @@ fetch('http://localhost:3001/Ocea_eo')
 
   // Farverne defineres for hvert kontinent når de trykkes på 
   const continentColors = {
-    "Asia": "red",
-    "Europe": "black",
+    "Asia": "lightgreen",
+    "Europe": "lightgreen",
     "Africa": "lightgreen",
-    "Americas": "yellow",
-    "Oceania": "blue"
+    "Americas": "lightgreen",
+    "Oceania": "lightgreen"
   };
 
   // Der oprettes en standardfarve for hvert kontinent   
-  const defaultColor = "lightblue";
+  const defaultColor = "white";
 
   // Dataen fra hver geojson fil indlæses for hvert kontinent
   Promise.all([
@@ -129,7 +130,7 @@ fetch('http://localhost:3001/Ocea_eo')
       .data(d => d.features) //Hvert lands features bindes nu på den geografiske data 
       .enter()
       .append("path") // Der tilføjes nu et nyt path element
-      .attr("d", path) // Attributten "d" tilføjes til det nye path element
+      .attr("d", path) // Attributten "d" tilføjes til det nye path element, med dataen fra "path" som er tidligere defineret
       .attr("fill", defaultColor) //Attributten "fill" sættes på det nye path element, og sættes til defaultColor
       .on("click", function (event, d) {
         const continent = d3.select(this.parentNode).attr("continentFile");
