@@ -82,7 +82,11 @@ fetch('http://localhost:3001/Ocea_eo')
 // Her defineres højden og bredden for svg-elementet
   const width = 1400;
   const height = 800;
-
+  document.querySelectorAll('.box').forEach(box => {
+    box.addEventListener('click', () => {
+        box.classList.toggle('expanded');
+    });
+});
 // Her tilføjes svg-elementet til body
   const svg = d3.select("body")
     .append("svg")
@@ -134,13 +138,48 @@ fetch('http://localhost:3001/Ocea_eo')
       .attr("fill", defaultColor) //Attributten "fill" sættes på det nye path element, og sættes til defaultColor
       .on("click", function (event, d) {
         const continent = d3.select(this.parentNode).attr("continentFile");
-
-        // Den valgte kontinentfarve nulstilles til standardfarven
+    
+        // Nulstil farve for alle kontinenter
         d3.selectAll(".continent path").attr("fill", defaultColor);
-
-        // Ændrer farven for kontinentet når et land indenfor kontinentet vælges
+    
+        // Ændrer farven for det valgte kontinent
         d3.selectAll(`.continent[continentFile="${continent}"] path`).attr("fill", continentColors[continent]);
-      });
-  }).catch(error => {
-    console.error("Fejl i indlæsning af GeoJSON filen:", error);
-  });
+    
+        // Tjekker om det valgte kontinent er Afrika og Mellemøsten
+        if (continent === "africa_middle_east") {
+            fetchAndDisplayData(); // Funktionen til at hente og vise data for Afrika og Mellemøsten
+        }
+    });
+    
+    function fetchAndDisplayData() {
+        fetch('http://localhost:3001/AME_f')
+            .then(response => response.json())
+            .then(data => {
+                const africaMiddleEastData = data.Africa_MiddleEast_fate;
+                // Antager at du vil vise data for de første fire år
+                for (let i = 0; i < 4; i++) {
+                    const yearData = africaMiddleEastData[i];
+                    const content = `År: ${yearData.year}\nRecycled: ${yearData.share_of_waste_recycled_from_total_regional_waste}%\nIncinerated: ${yearData.share_of_waste_incinerated_from_total_regional_waste}%`;
+                    document.getElementById(`box${i + 1}`).innerText = content;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    
+  })
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch('http://localhost:3001/AME_f')
+        .then(response => response.json())
+        .then(data => {
+            const africaMiddleEastData = data.Africa_MiddleEast_fate;
+            // Antager at du vil vise data for de første fire år
+            for (let i = 0; i < 18; i++) {
+                const yearData = africaMiddleEastData[i];
+                const content = `År: ${yearData.year}\nRecycled: ${yearData.share_of_waste_recycled_from_total_regional_waste}%\nIncinerated: ${yearData.share_of_waste_incinerated_from_total_regional_waste}%`;
+                document.getElementById(`box${i + 1}`).innerText = content;
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});
+;

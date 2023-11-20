@@ -1,3 +1,34 @@
 body{
     background-color: lightskyblue;
 }
+
+.container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.box {
+    width: 100px; /* Grundstørrelse */
+    height: 100px;
+    margin: 5px;
+    background-color: lightblue;
+    transition: width 0.3s; /* Glat overgang for udvidelse */
+    cursor: pointer; /* Cursor ændring for bedre brugeroplevelse */
+    position: relative;
+}
+
+
+.cover-image {
+    width: 100%; /* Sætter billedets bredde til at matche kassens bredde */
+    height: auto; /* Bevarer billedets aspekt ratio */
+    position: absolute; /* Positionerer billedet absolut inden for kassen */
+    top: 0; /* Placerer billedet øverst i kassen */
+    left: 0; /* Aligner billedet til venstre i kassen */
+    z-index: 10; /* Sørger for at billedet forbliver øverst */
+}
+.box.expanded {
+    width: 500px; /* Udvidet størrelse */
+}
