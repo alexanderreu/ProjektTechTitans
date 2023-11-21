@@ -149,9 +149,24 @@ fetch('http://localhost:3001/Ocea_eo')
         console.log(`Klik på kontinent: ${continent}`);
 
         showWelcomeText(continent);
+      });
     });
     
-
+ 
+    function fetchAndDisplayData() {
+        fetch('http://localhost:3001/AME_f')
+            .then(response => response.json())
+            .then(data => {
+                const africaMiddleEastData = data.Africa_MiddleEast_fate;
+                // Antager at du vil vise data for de første fire år
+                for (let i = 0; i < 4; i++) {
+                    const yearData = africaMiddleEastData[i];
+                    const content = `År: ${yearData.year}\nRecycled: ${yearData.share_of_waste_recycled_from_total_regional_waste}%\nIncinerated: ${yearData.share_of_waste_incinerated_from_total_regional_waste}%`;
+                    document.getElementById(`box${i + 1}`).innerText = content;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
     function showWelcomeText(continent) {
         // Fjern eksisterende velkomsttekst
         d3.selectAll(".welcome-text").remove();
