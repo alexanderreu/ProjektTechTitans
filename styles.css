@@ -2,12 +2,20 @@ body{
     background-color: lightskyblue;
 }
 
+.my-script {
+    position: relative;
+}
+
 .container {
     display: flex;
     flex-direction: column;
-    position: fixed;
-    bottom: 0;
+    position: absolute;
+    bottom: -800px; /* Ændre værdien her for at justere placeringen */
+    align-items: center; /* Centrerer elementerne vandret */
+    justify-content: center; /* Centrerer elementerne lodret */
+    transform: translateY(-50%);
     width: 100%;
+    padding: 10px; /* Tilføj padding efter behov */
 }
 
 .box {

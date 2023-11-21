@@ -120,8 +120,8 @@ fetch('http://localhost:3001/Ocea_eo')
     d3.json("europe.geojson"),
     d3.json("africa_middle_east.geojson"),
     d3.json("americas.geojson"),
-    d3.json("oceania.geojson")
-  ]).then(continentsData => {
+    d3.json("oceania.geojson")])
+    .then(continentsData => {
    
     // Sti-generatoren bruges nu til at konvertere den geografiske data til SVG-stier, så de kan tegnes på kortet
     svg.selectAll("path")
@@ -145,28 +145,30 @@ fetch('http://localhost:3001/Ocea_eo')
         // Ændrer farven for det valgte kontinent
         d3.selectAll(`.continent[continentFile="${continent}"] path`).attr("fill", continentColors[continent]);
     
-        // Tjekker om det valgte kontinent er Afrika og Mellemøsten
-        if (continent === "africa_middle_east") {
-            fetchAndDisplayData(); // Funktionen til at hente og vise data for Afrika og Mellemøsten
-        }
+          // Log kontinentet til consolen
+         console.log(`Klik på kontinent: ${continent}`);
+
+         showWelcomeText(continent);
+      });
+    
     });
+
+
+    function showWelcomeText(continent) {
+        // Fjern eksisterende velkomsttekst
+        d3.selectAll(".welcome-text").remove();
+      
+        // Opret ny velkomsttekst baseret på kontinentet
+        const welcomeText = svg.append("text")
+          .attr("class", "welcome-text")
+          .attr("x", width / 2)
+          .attr("y", height / 2)
+          .attr("text-anchor", "middle")
+          .attr("font-size", 20)
+          .text(`Velkommen til ${continent}`);
+      }
     
-    function fetchAndDisplayData() {
-        fetch('http://localhost:3001/AME_f')
-            .then(response => response.json())
-            .then(data => {
-                const africaMiddleEastData = data.Africa_MiddleEast_fate;
-                // Antager at du vil vise data for de første fire år
-                for (let i = 0; i < 4; i++) {
-                    const yearData = africaMiddleEastData[i];
-                    const content = `År: ${yearData.year}\nRecycled: ${yearData.share_of_waste_recycled_from_total_regional_waste}%\nIncinerated: ${yearData.share_of_waste_incinerated_from_total_regional_waste}%`;
-                    document.getElementById(`box${i + 1}`).innerText = content;
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
-    
-  })
+   
   
   document.addEventListener('DOMContentLoaded', () => {
     fetch('http://localhost:3001/AME_f')
@@ -182,4 +184,3 @@ fetch('http://localhost:3001/Ocea_eo')
         })
         .catch(error => console.error('Error:', error));
 });
-;
