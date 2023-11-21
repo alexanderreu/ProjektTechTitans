@@ -120,8 +120,8 @@ fetch('http://localhost:3001/Ocea_eo')
     d3.json("europe.geojson"),
     d3.json("africa_middle_east.geojson"),
     d3.json("americas.geojson"),
-    d3.json("oceania.geojson")
-  ]).then(continentsData => {
+    d3.json("oceania.geojson")])
+    .then(continentsData => {
    
     // Sti-generatoren bruges nu til at konvertere den geografiske data til SVG-stier, så de kan tegnes på kortet
     svg.selectAll("path")
@@ -145,12 +145,14 @@ fetch('http://localhost:3001/Ocea_eo')
         // Ændrer farven for det valgte kontinent
         d3.selectAll(`.continent[continentFile="${continent}"] path`).attr("fill", continentColors[continent]);
     
-        // Tjekker om det valgte kontinent er Afrika og Mellemøsten
-        if (continent === "africa_middle_east") {
-            fetchAndDisplayData(); // Funktionen til at hente og vise data for Afrika og Mellemøsten
-        }
+        // Log kontinentet til consolen
+        console.log(`Klik på kontinent: ${continent}`);
+
+        showWelcomeText(continent);
+      });
     });
     
+ 
     function fetchAndDisplayData() {
         fetch('http://localhost:3001/AME_f')
             .then(response => response.json())
@@ -165,21 +167,78 @@ fetch('http://localhost:3001/Ocea_eo')
             })
             .catch(error => console.error('Error:', error));
     }
-    
-  })
+    function showWelcomeText(continent) {
+        // Fjern eksisterende velkomsttekst
+        d3.selectAll(".welcome-text").remove();
+      
+        // Opret ny velkomsttekst baseret på kontinentet
+        const welcomeText = svg.append("text")
+          .attr("class", "welcome-text")
+          .attr("x", width / 2)
+          .attr("y", height / 2)
+          .attr("text-anchor", "middle")
+          .attr("font-size", 20)
+          .text(`Velkommen til ${continent}`);
+      }
+
+   
   
-  document.addEventListener('DOMContentLoaded', () => {
-    fetch('http://localhost:3001/AME_f')
-        .then(response => response.json())
-        .then(data => {
-            const africaMiddleEastData = data.Africa_MiddleEast_fate;
-            // Antager at du vil vise data for de første fire år
-            for (let i = 0; i < 18; i++) {
-                const yearData = africaMiddleEastData[i];
-                const content = `År: ${yearData.year}\nRecycled: ${yearData.share_of_waste_recycled_from_total_regional_waste}%\nIncinerated: ${yearData.share_of_waste_incinerated_from_total_regional_waste}%`;
-                document.getElementById(`box${i + 1}`).innerText = content;
+      function fillYearSelector(data) {
+        const selector = document.getElementById('yearSelector');
+        data.forEach((yearData, index) => {
+          let option = document.createElement('option');
+          option.value = index; // Brug indexet af data array som værdi
+          option.text = yearData.year; // Vis årstallet som tekst
+          selector.appendChild(option);
+        });
+      
+        // Sæt en event listener til at opdatere boksene, når et nyt år vælges
+        selector.addEventListener('change', (event) => {
+          updateBoxContent(data, event.target.value);
+        });
+      }
+      
+    
+      function updateSingleBoxContent(boxId, yearData, dataField, imagePath) {
+        const box = document.getElementById(boxId);
+        if (box) {
+            // Ryd eksisterende indhold
+            box.innerHTML = '';
+    
+            // Tilføjer et billede
+            const img = document.createElement('img');
+            img.src = imagePath; // Brug imagePath parameteren her
+            img.className = 'boxImage';
+            box.appendChild(img);
+    
+            // Tilføjer tekst
+            const content = document.createElement('div');
+            content.className = 'boxContent';
+            content.innerText = `${dataField.replace(/_/g, ' ')}: ${yearData[dataField]}%`;
+            box.appendChild(content);
+        }
+    }
+    
+    // Denne funktion organiserer opdateringen af alle kasserne baseret på det valgte år.
+    function updateBoxContent(data, selectedIndex) {
+        const selectedYearData = data[selectedIndex];
+        updateSingleBoxContent('box_recycled', selectedYearData, 'share_of_waste_recycled_from_total_regional_waste', '/Recycled001.png'); // Erstat med den rigtige sti til dit 'recycle' billede
+        updateSingleBoxContent('box_incinerated', selectedYearData, 'share_of_waste_incinerated_from_total_regional_waste', '/Incinerated001.png'); // Erstat med den rigtige sti til dit 'Incinerated' billede
+        updateSingleBoxContent('box_landfilled', selectedYearData, 'Share of waste landfilled from total regional waste', '/Landfilled001.png'); // Erstat med den rigtige sti til dit 'Landfilled' billede
+        updateSingleBoxContent('box_mismanaged_littered', selectedYearData, 'Share of littered and mismanaged from total regional waste', '/Mismanaged_littered001.png'); // Erstat med den rigtige sti til dit 'Mismanaged/Littered' billede
+    }
+    
+    
+    // Denne event handler udføres, når DOM'en er fuldt indlæst.
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('http://localhost:3001/AME_f')
+          .then(response => response.json())
+          .then(data => {
+            if (data && data.Africa_MiddleEast_fate) {
+              fillYearSelector(data.Africa_MiddleEast_fate); // Udfyld årsvælgeren
+              updateBoxContent(data.Africa_MiddleEast_fate, 0); // Vis data for det første år som standard
             }
-        })
-        .catch(error => console.error('Error:', error));
-});
-;
+          })
+          .catch(error => console.error('Error:', error));
+      });
+    
