@@ -9,41 +9,31 @@ body{
     bottom: 0;
     width: 100%;
 }
+
 .my-script {
     position: relative;
 }
 
-.box {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    bottom: -800px; /* Ændre værdien her for at justere placeringen */
-    align-items: center; /* Centrerer elementerne vandret */
-    justify-content: center; /* Centrerer elementerne lodret */
-    transform: translateY(-50%);
-    width: 100%;
-    padding: 10px; /* Tilføj padding efter behov */
-}
 
 .box {
-    display: flex;
-    width: 300px;
-    height: 150px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    cursor: pointer; /* viser at elementet er klikbart */
+    width: 100px; /* Grundstørrelse */
+    height: 100px;
+    margin: 5px;
+    background-color: lightblue;
+    transition: width 0.3s; /* Glat overgang for udvidelse */
+    cursor: pointer; /* Cursor ændring for bedre brugeroplevelse */
+    position: relative;
 }
 
-.boxImage {
-    width: 50%;
-    height: auto;
-}
 
-.boxContent {
-    display: none;
-    padding: 10px;
+.cover-image {
+    width: 100%; /* Sætter billedets bredde til at matche kassens bredde */
+    height: auto; /* Bevarer billedets aspekt ratio */
+    position: absolute; /* Positionerer billedet absolut inden for kassen */
+    top: 0; /* Placerer billedet øverst i kassen */
+    left: 0; /* Aligner billedet til venstre i kassen */
+    z-index: 10; /* Sørger for at billedet forbliver øverst */
 }
-
-.box.expanded .boxContent {
-    display: block; /* viser teksten, når boksen er udvidet */
+.box.expanded {
+    width: 500px; /* Udvidet størrelse */
 }

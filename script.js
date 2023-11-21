@@ -219,12 +219,13 @@ fetch('http://localhost:3001/Ocea_eo')
         }
     }
     
+    
     // Denne funktion organiserer opdateringen af alle kasserne baseret på det valgte år.
     function updateBoxContent(data, selectedIndex) {
         const selectedYearData = data[selectedIndex];
-        updateSingleBoxContent('box_recycled', selectedYearData, 'share_of_waste_recycled_from_total_regional_waste', '/Recycled001.png'); // Erstat med den rigtige sti til dit 'recycle' billede
+        updateSingleBoxContent('box_recycled', selectedYearData, 'share_of_waste_recycled_from_total_regional_waste', '/Recycled001.png'); // Erstat med den rigtige sti til dit 'Recycled' billede
         updateSingleBoxContent('box_incinerated', selectedYearData, 'share_of_waste_incinerated_from_total_regional_waste', '/Incinerated001.png'); // Erstat med den rigtige sti til dit 'Incinerated' billede
-        updateSingleBoxContent('box_landfilled', selectedYearData, 'Share of waste landfilled from total regional waste', '/Landfilled001.png'); // Erstat med den rigtige sti til dit 'Landfilled' billede
+        updateSingleBoxContent('box_landfilled', selectedYearData, 'Share of waste landfilled from total regional waste', '/landfilled001.png'); // Erstat med den rigtige sti til dit 'Landfilled' billede
         updateSingleBoxContent('box_mismanaged_littered', selectedYearData, 'Share of littered and mismanaged from total regional waste', '/Mismanaged_littered001.png'); // Erstat med den rigtige sti til dit 'Mismanaged/Littered' billede
     }
     
