@@ -2,6 +2,13 @@ body{
     background-color: lightskyblue;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
 .my-script {
     position: relative;
 }
