@@ -243,6 +243,7 @@ fetch('http://localhost:3001/Ocea_eo')
           })
           .catch(error => console.error('Error:', error));
       });
+
     
 
 // set the dimensions and margins of the graph
@@ -303,4 +304,5 @@ svg.selectAll("rect")
   .delay(function(d,i){console.log(i) ; return(i*100)})
 
 })
+
 
