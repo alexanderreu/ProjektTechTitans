@@ -79,7 +79,21 @@ fetch('http://localhost:3001/Oceania_eo')
     console.log(emit_ocean);
     });
 
+    // Fetcher global data
+fetch('http://localhost:3001/global_plastic')
+.then(response => response.json())
+.then(global_plastic => {
+  console.log(global_plastic.global_plastic);
+  if (global_plastic.ok) {
+    // Vis
+    clearAndShowDiagramGlobal(global_plastic.global_plastic);
+  } else {
+    document.write("<h1>ERROR</h1>")
+  }
+});
+  
 let endpointUrl='http://localhost:3001/Wor_f';
+let endpointUrlWorld= 'http://localhost:3001/global_plastic';
     
 const tooltip = d3.select('body').append('div')
 .attr('class','tooltip')
@@ -197,6 +211,7 @@ function fillYearSelector(data) {
 
 // Denne funktion vil håndtere klik på hvert kontinent og hente/viser data.
 function handleContinentClick(continent) {
+  clearBarChart();
 const endpoints = {
     'Africa': 'AME_f',
     'Americas': 'Amer_f',
@@ -229,7 +244,7 @@ fetch(`http://localhost:3001/${endpoint}`)
     })
     .catch(error => console.error('Error:', error));
 }
-  
+
 
 // Denne funktion organiserer opdateringen af alle bokse baseret på det valgte år.
 function updateBoxContent(data, selectedIndex) {
@@ -279,8 +294,115 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(error => console.error('Error:', error));
   });
 
-
+  function clearBarChart() {
+    // Vælg container elementet ved hjælp af ID og fjern alt indhold inde i det
+    const chartContainer = d3.select("#my_dataviz4");
     
+    if (!chartContainer.empty()) {
+      // Fjerner det indre 'svg' element, som indeholder barcharten
+      chartContainer.selectAll("svg").remove();
+    }
+  }
+
+// Denne event handler sørger for at grafen med data om global plastik produktion bliver vist når hjemmesiden reloades
+document.addEventListener('DOMContentLoaded', () => {
+
+  fetch(endpointUrlWorld)
+    .then(response => response.json())
+    .catch(error => console.error('Error:', error));
+});
+  
+
+// Funktion for global
+function clearAndShowDiagramGlobal(dataArray) {
+  // Clear existing content
+  d3.select("#my_dataviz4").select("svg").remove();
+
+  // Dimensioner og margener for global
+  var margin = { top: 50, right: 50, bottom: 120, left: 100 },
+    width = 1200 - margin.left - margin.right,
+    height = 700 - margin.top - margin.bottom;
+
+  // Svg til body for global
+  var svg4 = d3.select("#my_dataviz4")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  // X akse for global
+  var x4 = d3.scaleBand()
+    .range([0, width])
+    .domain(dataArray.map(function (d) { return d.year; }))
+    .padding(0.2);
+
+  svg4.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x4))
+    .selectAll("text")
+    .attr("transform", "translate(-10,0)rotate(-45)")
+    .style("text-anchor", "end");
+
+  // Y akse for global
+  var y4 = d3.scaleLinear()
+    .domain([0, d3.max(dataArray, function (d) { return d.annual_plastic_production_between_1950_and_2019; })])
+    .range([height, 0]);
+
+  svg4.append("g")
+    .call(d3.axisLeft(y4));
+
+  // Y-akse label for global
+  svg4.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x", 0 - height / 2)
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .text("Global plastikproduktion i tons");
+
+   // Bars for global
+   svg4.selectAll("mybar")
+   .data(dataArray)
+   .enter()
+   .append("rect")
+   .attr("x", function (d) { return x4(d.year); })
+   .attr("width", x4.bandwidth())
+   .attr("fill", "#42280E")
+   .attr("height", 0)
+   .attr("y", height)
+
+   // Tooltip for global
+   .on("mouseover", function (event, d) {
+     console.log("Mouseover event triggered for World:", event, d);
+     const tooltip = d3.select("#tooltip");
+
+     tooltip.transition()
+       .duration(200)
+       .style("opacity", .9);
+
+     tooltip.html(`<strong>År:</strong> ${d.year}<br><strong>Global plastikproduktion:</strong> ${parseFloat(d.annual_plastic_production_between_1950_and_2019).toFixed(2)} tons `)
+       .style("left", (event.pageX) + "px")
+       .style("top", (event.pageY - 28) + "px");
+   })
+
+   .on("mouseout", function () {
+     const tooltip = d3.select("#tooltip");
+
+     tooltip.transition()
+       .duration(500)
+       .style("opacity", 0);
+   })
+
+   // Animation for global
+   .transition()
+   .duration(800)
+   .attr("y", function (d) { return y4(d.annual_plastic_production_between_1950_and_2019); })
+   .attr("height", function (d) { return height - y4(d.annual_plastic_production_between_1950_and_2019); })
+   .delay(function (d, i) { return i * 100; });
+}
+
+
       // Fetcher Afrika og Mellemøsten data
 // Function to fetch data and display diagram based on continent
 function fetchDataAndDisplayDiagram(continent) {
