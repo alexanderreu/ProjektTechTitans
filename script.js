@@ -44,41 +44,46 @@ fetch('http://localhost:3001/Wor_f')
 
 // Her hentes data fra Share of global plastic waste emitted to ocean
 
-fetch('http://localhost:3001/AME_eo')
+fetch('http://localhost:3001/Africa_eo')
     .then(response => response.json())
-    .then(Africa_MiddleEast_emit_ocean=> {
+    .then(emit_ocean=> {
     
-    console.log(Africa_MiddleEast_emit_ocean);
+    console.log(emit_ocean);
     });
 
-fetch('http://localhost:3001/Amer_eo')
+fetch('http://localhost:3001/Americas_eo')
     .then(response => response.json())
-    .then(Americas_emit_ocean=> {
+    .then(emit_ocean=> {
     
-    console.log(Americas_emit_ocean);
+    console.log(emit_ocean);
     });
 
 fetch('http://localhost:3001/Asia_eo')
     .then(response => response.json())
-    .then(Asia_emit_ocean=> {
+    .then(emit_ocean=> {
     
-    console.log(Asia_emit_ocean);
+    console.log(emit_ocean);
     });
 
-fetch('http://localhost:3001/Euro_eo')
+fetch('http://localhost:3001/Europe_eo')
     .then(response => response.json())
-    .then(Europa_emit_ocean=> {
+    .then(emit_ocean=> {
     
-    console.log(Europa_emit_ocean);
+    console.log(emit_ocean);
     });
 
-fetch('http://localhost:3001/Ocea_eo')
+fetch('http://localhost:3001/Oceania_eo')
     .then(response => response.json())
-    .then(Oceania_emit_ocean=> {
+    .then(emit_ocean=> {
     
-    console.log(Oceania_emit_ocean);
+    console.log(emit_ocean);
     });
 
+let endpointUrl='http://localhost:3001/Wor_f';
+    
+const tooltip = d3.select('body').append('div')
+.attr('class','tooltip')
+.style('opacity', 0);
 
 // Her defineres højden og bredden for svg-elementet
   const width = 1400;
@@ -149,25 +154,16 @@ fetch('http://localhost:3001/Ocea_eo')
         // Log kontinentet til consolen
         console.log(`Klik på kontinent: ${continent}`);
 
+          // Kald 'handleContinentClick' med navnet på det valgte kontinent
+        handleContinentClick(continent); // Dette er tilføjelsen
+
+        fetchDataAndDisplayDiagram(continent);
+
         showWelcomeText(continent);
       });
     });
     
  
-    function fetchAndDisplayData() {
-        fetch('http://localhost:3001/AME_f')
-            .then(response => response.json())
-            .then(data => {
-                const africaMiddleEastData = data.Africa_MiddleEast_fate;
-                // Antager at du vil vise data for de første fire år
-                for (let i = 0; i < 4; i++) {
-                    const yearData = africaMiddleEastData[i];
-                    const content = `År: ${yearData.year}\nRecycled: ${yearData.share_of_waste_recycled_from_total_regional_waste}%\nIncinerated: ${yearData.share_of_waste_incinerated_from_total_regional_waste}%`;
-                    document.getElementById(`box${i + 1}`).innerText = content;
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
     function showWelcomeText(continent) {
         // Fjern eksisterende velkomsttekst
         d3.selectAll(".welcome-text").remove();
@@ -180,127 +176,222 @@ fetch('http://localhost:3001/Ocea_eo')
           .attr("text-anchor", "middle")
           .attr("font-size", 20)
           .text(`Velkommen til ${continent}`);
-      }
+           
+}
+      
 
-   
+function fillYearSelector(data) {
+    const selector = document.getElementById('yearSelector');
+    data.forEach((yearData, index) => {
+      let option = document.createElement('option');
+      option.value = index; // Brug indexet af data array som værdi
+      option.text = yearData.year; // Vis årstallet som tekst
+      selector.appendChild(option);
+    });
+  selector.value=0;
+    // Sæt en event listener til at opdatere boksene, når et nyt år vælges
+    selector.addEventListener('change', (event) => {
+      updateBoxContent(data, event.target.value);
+    });
+  }
+
+// Denne funktion vil håndtere klik på hvert kontinent og hente/viser data.
+function handleContinentClick(continent) {
+const endpoints = {
+    'Africa': 'AME_f',
+    'Americas': 'Amer_f',
+    'Asia': 'Asia_f',
+    'Europe': 'Euro_f',
+    'Oceania': 'Ocea_f',
+    'World': 'Wor_f'
+};
+
+const endpoint = endpoints[continent];
+if (endpoint) {
+    console.log("update")
+    fetchAndDisplayData(endpoint, 'box'); 
+    // Nulstil eller opdater årsvælgeren for det nye kontinent
+    // Du skal tilføje logik her for at håndtere årsvælgeren
+} else {
+    console.error(`Endpoint for ${continent} not found.`);
+}
+}
+
+
+// Din generelle funktion til at hente og vise data
+function fetchAndDisplayData(endpoint, containerPrefix) {
+fetch(`http://localhost:3001/${endpoint}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.values);
+        fillYearSelector(data.values); // Udfyld årsvælgeren
+          updateBoxContent(data.values, 0); // Vis data for det første år som standard
+    })
+    .catch(error => console.error('Error:', error));
+}
   
-      function fillYearSelector(data) {
-        const selector = document.getElementById('yearSelector');
-        data.forEach((yearData, index) => {
-          let option = document.createElement('option');
-          option.value = index; // Brug indexet af data array som værdi
-          option.text = yearData.year; // Vis årstallet som tekst
-          selector.appendChild(option);
-        });
-      
-        // Sæt en event listener til at opdatere boksene, når et nyt år vælges
-        selector.addEventListener('change', (event) => {
-          updateBoxContent(data, event.target.value);
-        });
-      }
-      
+
+// Denne funktion organiserer opdateringen af alle bokse baseret på det valgte år.
+function updateBoxContent(data, selectedIndex) {
+const selectedYearData = data[selectedIndex];
+updateSingleBoxContent('box_recycled', selectedYearData, 'Share_of_waste_recycled_from_total_regional_waste', '/Recycled001.png');
+updateSingleBoxContent('box_incinerated', selectedYearData, 'Share_of_waste_incinerated_from_total_regional_waste', '/Incinerated001.png');
+updateSingleBoxContent('box_mismanaged_littered', selectedYearData, 'Share_of_littered_and_mismanaged_from_total_regional_waste', '/Mismanaged_littered001.png');
+updateSingleBoxContent('box_landfilled', selectedYearData, 'Share_of_waste_landfilled_from_total_regional_waste', '/Landfilled001.png');
+}
+
+function updateSingleBoxContent(boxId, yearData, dataField, imagePath) {
+const box = document.getElementById(boxId);
+if (box) {
+    // Ryd eksisterende indhold
+    box.innerHTML = '';
     
-      function updateSingleBoxContent(boxId, yearData, dataField, imagePath) {
-        const box = document.getElementById(boxId);
-        if (box) {
-            // Ryd eksisterende indhold
-            box.innerHTML = '';
+    // Tilføj billede
+    const img = document.createElement('img');
+    img.src = imagePath;
+    img.alt = dataField; // Tilføj 'alt' for bedre tilgængelighed
+    img.className = 'boxImage';
+    box.appendChild(img);
     
-            // Tilføjer et billede
-            const img = document.createElement('img');
-            img.src = imagePath; // Brug imagePath parameteren her
-            img.className = 'boxImage';
-            box.appendChild(img);
-    
-            // Tilføjer tekst
-            const content = document.createElement('div');
-            content.className = 'boxContent';
-            content.innerText = `${dataField.replace(/_/g, ' ')}: ${yearData[dataField]}%`;
-            box.appendChild(content);
+    // Tilføj tekst
+    const content = document.createElement('div');
+    content.className = 'boxContent';
+    const dataValue = yearData[dataField] || 'Data ikke tilgængelig'; // Tilføj fallback for undefined værdier
+    content.innerText = `${dataField.replace(/_/g, ' ')}: ${dataValue}%`;
+    box.appendChild(content);
+} else {
+    console.error(`Box with id '${boxId}' not found.`);
+}
+}
+
+
+// Denne event handler udføres, når DOM'en er fuldt indlæst.
+document.addEventListener('DOMContentLoaded', () => {
+
+    fetch(endpointUrl)
+      .then(response => response.json())
+      .then(data => {
+        if (data && data.values) {
+          fillYearSelector(data.values); // Udfyld årsvælgeren
+          updateBoxContent(data.values, 0); // Vis data for det første år som standard
         }
-    }
+      })
+      .catch(error => console.error('Error:', error));
+  });
+
+
     
-    
-    // Denne funktion organiserer opdateringen af alle kasserne baseret på det valgte år.
-    function updateBoxContent(data, selectedIndex) {
-        const selectedYearData = data[selectedIndex];
-        updateSingleBoxContent('box_recycled', selectedYearData, 'share_of_waste_recycled_from_total_regional_waste', '/Recycled001.png'); // Erstat med den rigtige sti til dit 'Recycled' billede
-        updateSingleBoxContent('box_incinerated', selectedYearData, 'share_of_waste_incinerated_from_total_regional_waste', '/Incinerated001.png'); // Erstat med den rigtige sti til dit 'Incinerated' billede
-        updateSingleBoxContent('box_landfilled', selectedYearData, 'Share of waste landfilled from total regional waste', '/landfilled001.png'); // Erstat med den rigtige sti til dit 'Landfilled' billede
-        updateSingleBoxContent('box_mismanaged_littered', selectedYearData, 'Share of littered and mismanaged from total regional waste', '/Mismanaged_littered001.png'); // Erstat med den rigtige sti til dit 'Mismanaged/Littered' billede
-    }
-    
-    
-    // Denne event handler udføres, når DOM'en er fuldt indlæst.
-    document.addEventListener('DOMContentLoaded', () => {
-        fetch('http://localhost:3001/AME_f')
-          .then(response => response.json())
-          .then(data => {
-            if (data && data.Africa_MiddleEast_fate) {
-              fillYearSelector(data.Africa_MiddleEast_fate); // Udfyld årsvælgeren
-              updateBoxContent(data.Africa_MiddleEast_fate, 0); // Vis data for det første år som standard
+      // Fetcher Afrika og Mellemøsten data
+// Function to fetch data and display diagram based on continent
+function fetchDataAndDisplayDiagram(continent) {
+    const endpoint = `http://localhost:3001/${continent}_eo`;
+
+    fetch(endpoint)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+
+            if (data.ok) {
+                // Show diagram for the specific continent
+                clearAndShowDiagram(data.emit_ocean);
+            } else {
+                // Display an error message
+                document.write("<h1>ERROR</h1>");
             }
-          })
-          .catch(error => console.error('Error:', error));
-      });
-    
-
-// set the dimensions and margins of the graph
-var margin = {top: 30, right: 30, bottom: 70, left: 60},
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
-
-// append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
-  .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
-
-// Parse the Data
-d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum_header.csv", function(data) {
-
-// X axis
-var x = d3.scaleBand()
-  .range([ 0, width ])
-  .domain(data.map(function(d) { return d.Country; }))
-  .padding(0.2);
-svg.append("g")
-  .attr("transform", "translate(0," + height + ")")
-  .call(d3.axisBottom(x))
-  .selectAll("text")
-    .attr("transform", "translate(-10,0)rotate(-45)")
-    .style("text-anchor", "end");
-
-// Add Y axis
-var y = d3.scaleLinear()
-  .domain([0, 13000])
-  .range([ height, 0]);
-svg.append("g")
-  .call(d3.axisLeft(y));
-
-// Bars
-svg.selectAll("mybar")
-  .data(data)
+        })
+        .catch(error => {
+            // Handle fetch errors
+            console.error('Fetch error:', error);
+            document.write("<h1>ERROR</h1>");
+        });
+}
+      
+      // Funktion laves for det femte diagram (Afrika og Mellemøsten)
+function clearAndShowDiagram(dataArray) {
+    // Clear existing content
+    d3.select("#my_dataviz5").select("svg").remove();
+  
+    // Dimensioner og margener for det femte diagram (Afrika og Mellemøsten)
+    var margin = { top: 50, right: 50, bottom: 120, left: 80 },
+      width = 900 - margin.left - margin.right,
+      height = 700 - margin.top - margin.bottom;
+  
+    // Svg til body for det femte diagram (Afrika og Mellemøsten)
+    var svg5 = d3.select("#my_dataviz5")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  
+    // X akse for det femte diagram (Afrika og Mellemøsten)
+    var x5 = d3.scaleBand()
+      .range([0, width])
+      .domain(dataArray.map(function (d) { return d.entity; }))
+      .padding(0.2);
+  
+    svg5.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x5))
+      .selectAll("text")
+      .attr("transform", "translate(-10,0)rotate(-45)")
+      .style("text-anchor", "end");
+  
+    // Y akse for det femte diagram (Afrika og Mellemøsten)
+    var y5 = d3.scaleLinear()
+      .domain([0, d3.max(dataArray, function (d) { return d.share_of_global_plastics_emittet_to_ocean; })])
+      .range([height, 0]);
+  
+    svg5.append("g")
+      .call(d3.axisLeft(y5));
+  
+    // Y-akse label for det femte diagram (Afrika og Mellemøsten)
+    svg5.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x", 0 - height / 2)
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Plastikforurening per land i Afrika og Mellemøsten (procent)");
+  
+    // Bars for det femte diagram (Afrika og Mellemøsten)
+  svg5.selectAll("mybar")
+  .data(dataArray)
   .enter()
   .append("rect")
-    .attr("x", function(d) { return x(d.Country); })
-    .attr("width", x.bandwidth())
-    .attr("fill", "#69b3a2")
-    // no bar at the beginning thus:
-    .attr("height", function(d) { return height - y(0); }) // always equal to 0
-    .attr("y", function(d) { return y(0); })
+  .attr("x", function (d) { return x5(d.entity); })
+  .attr("width", x5.bandwidth())
+  .attr("fill", "#42280E")
+  .attr("height", 0)
+  .attr("y", height)
 
+  // Tooltip for Afrika og Mellemøsten chart
+  .on("mouseover", function (event, d) {
+    console.log("Mouseover event triggered for Afrika og Mellemøsten:", event, d);
+    const tooltip = d3.select("#tooltip");
 
-// Animation
-svg.selectAll("rect")
+    tooltip.transition()
+      .duration(200)
+      .style("opacity", .9);
+
+    tooltip.html(`<strong>Land:</strong> ${d.entity}<br><strong>Andel af plastikforurening:</strong> ${parseFloat(d.share_of_global_plastics_emittet_to_ocean).toFixed(2)}%`)
+      .style("left", (event.pageX) + "px")
+      .style("top", (event.pageY - 28) + "px");
+  })
+
+  .on("mouseout", function () {
+    const tooltip = d3.select("#tooltip");
+
+    tooltip.transition()
+      .duration(500)
+      .style("opacity", 0);
+  })
+
+  // Animation for det femte diagram (Afrika og Mellemøsten)
   .transition()
   .duration(800)
-  .attr("y", function(d) { return y(d.Value); })
-  .attr("height", function(d) { return height - y(d.Value); })
-  .delay(function(d,i){console.log(i) ; return(i*100)})
-
-})
+  .attr("y", function (d) { return y5(d.share_of_global_plastics_emittet_to_ocean); })
+  .attr("height", function (d) { return height - y5(d.share_of_global_plastics_emittet_to_ocean); })
+  .delay(function (d, i) { return i * 100; });
+}
 

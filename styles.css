@@ -2,38 +2,88 @@ body{
     background-color: lightskyblue;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
 .my-script {
     position: relative;
 }
 
+#yearSelector {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: -150px; /* Ændre værdien her for at justere placeringen */
+    left: 50px; /* Ændre værdien her for at justere placeringen langs x-aksen */
+    align-items: center; /* Centrerer elementerne vandret */
+    justify-content: center; /* Centrerer elementerne lodret */
+    transform: translateY(-50%);
+    padding: 10px; /* Tilføj padding efter behov */
+    background-color: #3498db; /* Baggrundsfarve */
+    color: #fff; /* Tekstfarve */
+    border: none; /* Ingen kantlinje */
+    border-radius: 5px; /* Afrundede hjørner */
+    cursor: pointer; /* Vis cursor som en pil for at indikere klikbarhed */
+    transition: background-color 0.3s ease; /* Overgangseffekt på baggrundsfarven */
+}
+
+#yearSelector:hover {
+    background-color: #2f3235; /* Baggrundsfarve ved hover */
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: -1050px; /* Ændre værdien her for at justere placeringen */
+    align-items: left; /* Centrerer elementerne vandret */
+    justify-content: center; /* Centrerer elementerne lodret */
+    transform: translateY(-50%);
+    padding: 0px; /* Tilføj padding efter behov */
+}
+
+
 
 .box {
-    width: 100px; /* Grundstørrelse */
-    height: 100px;
-    margin: 5px;
-    background-color: lightblue;
-    transition: width 0.3s; /* Glat overgang for udvidelse */
-    cursor: pointer; /* Cursor ændring for bedre brugeroplevelse */
-    position: relative;
+    display: flex;
+    width: 300px;
+    height: 150px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer; /* viser at elementet er klikbart */
 }
 
+.boxImage {
+    width: 50%;
+    height: auto;
+}
 
-.cover-image {
-    width: 100%; /* Sætter billedets bredde til at matche kassens bredde */
-    height: auto; /* Bevarer billedets aspekt ratio */
-    position: absolute; /* Positionerer billedet absolut inden for kassen */
-    top: 0; /* Placerer billedet øverst i kassen */
-    left: 0; /* Aligner billedet til venstre i kassen */
-    z-index: 10; /* Sørger for at billedet forbliver øverst */
+.boxContent {
+    display: none;
+    padding: 10px;
 }
-.box.expanded {
-    width: 500px; /* Udvidet størrelse */
+
+.box.expanded .boxContent {
+    display: block; /* viser teksten, når boksen er udvidet */
 }
+
+.grafer {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 100px;
+    bottom: -1170px; /* Ændre værdien her for at justere placeringen */
+    align-items: left; /* Centrerer elementerne vandret */
+    justify-content: center; /* Centrerer elementerne lodret */
+    transform: translateY(-50%);
+    padding: 0px; /* Tilføj padding efter behov */
+}
+
+#tooltip {
+    position: absolute;
+    background: #f4f4f4;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    opacity: 0;
+    z-index: 1000;
+    pointer-events: none;
+  }
