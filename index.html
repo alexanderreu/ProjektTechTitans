@@ -1,18 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://d3js.org/d3.v7.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+      <meta charset="UTF-8">
+      <link rel="stylesheet" type="text/css" href="styles.css">
+      <title>Plastikforurening</title>    
+    
 </head>
 <body>
-    <!-- Create a div where the graph will take place -->
-<div 
-id="my_dataviz">
+  <h1>Plastikforurening på verdensplan</h1>
+  <h3>Vælge det kontinent du gerne vil vide mere om</h3>
+  <select id="yearSelector"></select>
+ <div class="container">
+    <div class="box" id="box_recycled">Recycled</div>
+    <div class="box" id="box_incinerated">Incinirated</div>
+    <div class="box" id="box_mismanaged_littered">Mismanaged/Littered</div>
+    <div class="box" id="box_landfilled">Landfilled</div>
+  </div>
+<div class="grafer">
+<div id="my_dataviz"></div>
+  <div id="my_dataviz2"></div>
+  <div id="my_dataviz3"></div>
+  <div id="my_dataviz4"></div>
+  <div id="my_dataviz5"></div>
 </div>
-   <!-- Load d3.js -->
- <script src="https://d3js.org/d3.v4.js"></script>
- <script src="script.js"></script>
+
+
+<div class="tooltip" id="tooltip"></div>
+
+  <script src="script.js" class="my-script"></script>
 
 </body>
+
+
 </html>
