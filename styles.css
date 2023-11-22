@@ -6,6 +6,40 @@ body{
     position: relative;
 }
 
+#yearSelector {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: -150px; /* Ændre værdien her for at justere placeringen */
+    left: 50px; /* Ændre værdien her for at justere placeringen langs x-aksen */
+    align-items: center; /* Centrerer elementerne vandret */
+    justify-content: center; /* Centrerer elementerne lodret */
+    transform: translateY(-50%);
+    padding: 10px; /* Tilføj padding efter behov */
+    background-color: #3498db; /* Baggrundsfarve */
+    color: #fff; /* Tekstfarve */
+    border: none; /* Ingen kantlinje */
+    border-radius: 5px; /* Afrundede hjørner */
+    cursor: pointer; /* Vis cursor som en pil for at indikere klikbarhed */
+    transition: background-color 0.3s ease; /* Overgangseffekt på baggrundsfarven */
+}
+
+#yearSelector:hover {
+    background-color: #2f3235; /* Baggrundsfarve ved hover */
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: -1050px; /* Ændre værdien her for at justere placeringen */
+    align-items: left; /* Centrerer elementerne vandret */
+    justify-content: center; /* Centrerer elementerne lodret */
+    transform: translateY(-50%);
+    padding: 0px; /* Tilføj padding efter behov */
+}
+
 
 
 .box {
@@ -30,3 +64,26 @@ body{
 .box.expanded .boxContent {
     display: block; /* viser teksten, når boksen er udvidet */
 }
+
+.grafer {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 100px;
+    bottom: -1170px; /* Ændre værdien her for at justere placeringen */
+    align-items: left; /* Centrerer elementerne vandret */
+    justify-content: center; /* Centrerer elementerne lodret */
+    transform: translateY(-50%);
+    padding: 0px; /* Tilføj padding efter behov */
+}
+
+#tooltip {
+    position: absolute;
+    background: #f4f4f4;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    opacity: 0;
+    z-index: 1000;
+    pointer-events: none;
+  }
