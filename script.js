@@ -279,6 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(error => console.error('Error:', error));
   });
 
+
     
       // Fetcher Afrika og Mellemøsten data
 // Function to fetch data and display diagram based on continent
@@ -393,4 +394,4 @@ function clearAndShowDiagram(dataArray) {
   .attr("height", function (d) { return height - y5(d.share_of_global_plastics_emittet_to_ocean); })
   .delay(function (d, i) { return i * 100; });
 }
-    
+
