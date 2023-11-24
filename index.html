@@ -3,6 +3,7 @@
 <head>
   <script src="https://d3js.org/d3.v7.min.js"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta charset="UTF-8">
@@ -12,24 +13,45 @@
 </head>
 <body>
   <h1>Plastikforurening på verdensplan</h1>
+
+    <!-- top-bar -->
+  <div class="top-bar">
+    <div class="menu">
+        <a href="#Hjem">Hjem</a>
+        <a href="#Håndtering af plastik">Håndtering af plastik</a>
+        <a href="#Plastik i havet">Plastik i havet </a>
+    </div>
+</div>
+
+    <!-- Section 1: Map Container -->
+ 
   <h3>Vælge det kontinent du gerne vil vide mere om</h3>
-  <select id="yearSelector"></select>
- <div class="container">
+  <div id="map-container"></div>
+
+  <!-- Section 2: Year Selector and Boxes -->
+  <div class="container">
+    <div id="welcome-container"></div>
+    <p id="kliktext">Klik på symbolerne til venstre for at se håndteringen af plastik</p>
+    <div class="video-container">
+      <iframe width="940" height="530" src="https://www.youtube.com/embed/7eivTQkBYvo?si=8lRZQuC6tj25ZIFB"
+       title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+    <select id="yearSelector"></select>
     <div class="box" id="box_recycled">Recycled</div>
     <div class="box" id="box_incinerated">Incinirated</div>
     <div class="box" id="box_mismanaged_littered">Mismanaged/Littered</div>
     <div class="box" id="box_landfilled">Landfilled</div>
   </div>
+ 
+
+    <!-- Section 3: Graphs -->
 <div class="grafer">
-<div id="my_dataviz"></div>
-  <div id="my_dataviz2"></div>
-  <div id="my_dataviz3"></div>
-  <div id="my_dataviz4"></div>
-  <div id="my_dataviz5"></div>
+<div id="my_dataviz1"></div>
+<div id="my_dataviz2"></div>
 </div>
 
-
 <div class="tooltip" id="tooltip"></div>
+<button id="backToTopBtn">Tilbage til toppen</button>
 
   <script src="script.js" class="my-script"></script>
 
