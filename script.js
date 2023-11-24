@@ -397,6 +397,7 @@ function fetchAndDisplayData(endpoint, containerPrefix) {
         .then(response => response.json())
         .then(data => {
             console.log(data.values);
+            clearYearSelector();
             fillYearSelector(data.values); // Udfyld årsvælgeren
               updateBoxContent(data.values, 0); // Vis data for det første år som standard
         })
