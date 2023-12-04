@@ -1,89 +1,215 @@
-body{
-    background-color: lightskyblue;
+body {
+  background-color: lightskyblue;
+  font-family: "Open Sans", sans-serif;
+}
+h1,
+h3 {
+  color: #333; /* Farve for overskrifter */
+  text-align: center; /* Centrerer indholdet i midten */
+  font-weight: bold; /* Gør teksten fed */
+  margin-bottom: 20px; /* Tilføj lidt bundmargen for at give plads */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Skyggeeffekt for tekst */
 }
 
-.my-script {
-    position: relative;
+h1 {
+  font-size: 2.5em; /* Juster skriftstørrelsen efter behov */
+}
+
+h3 {
+  font-size: 1.3em; /* Juster skriftstørrelsen efter behov */
+}
+
+#kliktext {
+  margin-top: 80px;
+  border-radius: 5px;
+  font-family: "Helvetica", sans-serif; /* Skift font efter behov */
+  font-weight: bold; /* Gør overskriften fed */
+  font-size: 16px;
+}
+
+.top-bar {
+  padding: 10px;
+  align-items: center; /* Centrerer elementerne vertikalt */
+  text-align: center; /* Centrerer menuvalgene i midten af baren */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Skyggeeffekt for tekst */
+}
+
+.menu a {
+  color: #fff; /* Tekstfarve for menuvalg */
+  text-decoration: none;
+  margin: 0 15px; /* Afstand mellem menuvalg */
+  font-size: 18px;
+  font-weight: bold; /* Gør teksten fed for at skille den ud */
+  transition: color 0.3s ease; /* Glat farveovergang ved hover */
+}
+
+.menu a:hover {
+  color: #333; /* Ændrer farven ved hover */
+}
+
+/* Section 1: Map Container */
+#map-container {
+  background-color: lightskyblue;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0px 5px 5px -5px #333; /* Shadow between sections */
+}
+
+/* Section 2: Year Selector and Boxes */
+.container {
+  text-align: center; /* Centrer indholdet vandret */
+  position: relative; /* Gør container relativ for at bruge absolute positioning i child elements */
+  padding: 10px 10px 60px;
+  box-shadow: 0px 5px 5px -5px #333; /* Shadow between sections */
 }
 
 #yearSelector {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    bottom: -150px; /* Ændre værdien her for at justere placeringen */
-    left: 50px; /* Ændre værdien her for at justere placeringen langs x-aksen */
-    align-items: center; /* Centrerer elementerne vandret */
-    justify-content: center; /* Centrerer elementerne lodret */
-    transform: translateY(-50%);
-    padding: 10px; /* Tilføj padding efter behov */
-    background-color: #3498db; /* Baggrundsfarve */
-    color: #fff; /* Tekstfarve */
-    border: none; /* Ingen kantlinje */
-    border-radius: 5px; /* Afrundede hjørner */
-    cursor: pointer; /* Vis cursor som en pil for at indikere klikbarhed */
-    transition: background-color 0.3s ease; /* Overgangseffekt på baggrundsfarven */
+  align-items: center; /* Centrerer elementerne vandret */
+  justify-content: center; /* Centrerer elementerne lodret */
+  transform: translateY(-50%);
+  padding: 10px; /* Tilføj padding efter behov */
+  background-color: #3498db; /* Baggrundsfarve */
+  color: #fff; /* Tekstfarve */
+  border: none; /* Ingen kantlinje */
+  border-radius: 5px; /* Afrundede hjørner */
+  cursor: pointer; /* Vis cursor som en pil for at indikere klikbarhed */
+  transition: background-color 0.3s ease; /* Overgangseffekt på baggrundsfarven */
+  margin-top: 0px;
+  margin-right: 200px;
+}
+
+#welcome-container {
+  position: absolute;
+  left: 50%;
+  margin-top: 40px;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+  border-radius: 5px;
+  font-family: "Helvetica", sans-serif; /* Skift font efter behov */
+  font-weight: bold; /* Gør overskriften fed */
+  font-size: 28px; /* Øg skriftstørrelsen efter behov */
+  color: #333; /* Skift tekstfarve efter behov */
+  z-index: 1000; /* Sørg for, at welcome-container ligger over video-container */
+}
+.video-container {
+  float: right;
+  margin: 0px; /* Juster efter behov for at give plads omkring videoen */
+  margin-top: 20px;
+}
+
+.box {
+  display: flex;
+  width: 300px;
+  height: 135px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer; /* viser at elementet er klikbart */
+  margin-left: 50px;
+}
+
+#scrollToGraphsBtn {
+  position: absolute;
+  bottom: 10px; /* Juster dette tal efter behov for at ændre afstanden fra bunden */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: #007bff; /* Ændre farven efter ønske */
+  color: #fff; /* Ændre farven efter ønske */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#scrollToGraphsBtn:hover {
+  background-color: #0056b3; /* Ændre farven efter ønske */
+}
+
+/* Section 3: Graphs */
+.grafer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
 #yearSelector:hover {
-    background-color: #2f3235; /* Baggrundsfarve ved hover */
-}
-
-
-.container {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    bottom: -1050px; /* Ændre værdien her for at justere placeringen */
-    align-items: left; /* Centrerer elementerne vandret */
-    justify-content: center; /* Centrerer elementerne lodret */
-    transform: translateY(-50%);
-    padding: 0px; /* Tilføj padding efter behov */
-}
-
-
-
-.box {
-    display: flex;
-    width: 300px;
-    height: 150px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    cursor: pointer; /* viser at elementet er klikbart */
+  background-color: #2f3235; /* Baggrundsfarve ved hover */
 }
 
 .boxImage {
-    width: 50%;
-    height: auto;
+  width: 50%;
+  height: auto;
 }
 
 .boxContent {
-    display: none;
-    padding: 10px;
+  display: none;
+  padding: 10px;
 }
 
 .box.expanded .boxContent {
-    display: block; /* viser teksten, når boksen er udvidet */
-}
-
-.grafer {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    right: 100px;
-    bottom: -1170px; /* Ændre værdien her for at justere placeringen */
-    align-items: left; /* Centrerer elementerne vandret */
-    justify-content: center; /* Centrerer elementerne lodret */
-    transform: translateY(-50%);
-    padding: 0px; /* Tilføj padding efter behov */
+  display: block; /* viser teksten, når boksen er udvidet */
 }
 
 #tooltip {
-    position: absolute;
-    background: #f4f4f4;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    opacity: 0;
-    z-index: 1000;
-    pointer-events: none;
-  }
+  position: absolute;
+  background: #f4f4f4;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  opacity: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+#backToTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#backToTopBtn:hover {
+  background-color: #0056b3;
+}
+
+.continent-highlight {
+  fill: black;
+}
+
+.grafer {
+  align-items: center;
+  padding: 100px;
+  position: relative; /* Add relative positioning */
+}
+
+#my_dataviz1 h1 {
+  position: absolute; /* Change to absolute positioning */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  margin: 20px 0;
+  z-index: 1000; /* Make sure it's above other elements */
+}
+
+#my_dataviz2 h1 {
+  position: absolute; /* Change to absolute positioning */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  margin: 20px 0;
+  z-index: 1000; /* Make sure it's above other elements */
+}
