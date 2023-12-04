@@ -25,6 +25,12 @@ $(document).ready(function () {
   });
 });
 
+// Lyt efter klik på knappen
+$("#scrollToGraphsBtn").on("click", function () {
+  // Rul ned til graferne over 500 millisekunder
+  $("html, body").animate({ scrollTop: $(".grafer").offset().top }, 500);
+});
+
 $(document).ready(function () {
   // Lyt efter klik på "Håndtering af plastik"-menuvalget
   $('a[href="#Plastik i havet"]').on("click", function (event) {
@@ -52,9 +58,13 @@ $(document).ready(function () {
   });
 });
 
+// Der defineres en variabel med vores localhost for world_fate, som skal bruges senere i vores script
 let endpointUrl = "http://localhost:3001/Wor_f";
+
+// Der defineres en variabel med vores localhost for global_plastic, som skal bruges senere i vores script
 let endpointUrlWorld = "http://localhost:3001/global_plastic";
 
+// Her defineres vores tooltip, som bruges senere til visning af grafer. Den vil indstil videre være usynlig
 const tooltip = d3
   .select("body")
   .append("div")
@@ -64,11 +74,7 @@ const tooltip = d3
 // Her defineres højden og bredden for svg-elementet
 const width = 1400;
 const height = 800;
-document.querySelectorAll(".box").forEach((box) => {
-  box.addEventListener("click", () => {
-    box.classList.toggle("expanded");
-  });
-});
+
 // Her tilføjes svg-elementet til body
 const svg = d3
   .select("#map-container")
@@ -132,16 +138,16 @@ Promise.all([
         continentColors[continent]
       );
 
-      // Log kontinentet til consolen
-      console.log(`Klik på kontinent: ${continent}`);
+      // Funktionen handleContinentClick kaldes med continent som argument,
+      handleContinentClick(continent);
 
-      // Kald 'handleContinentClick' med navnet på det valgte kontinent
-      handleContinentClick(continent); // Dette er tilføjelsen
-
+      // Funktionen fetchDataAndDisplayDiagram kaldes med continent som argument,
       fetchDataAndDisplayDiagram(continent);
 
+      // Funktionen showWelcomeText kaldes med continent som argument,
       showWelcomeText(continent);
     })
+
     .on("mouseover", function (event, d) {
       const continent = d3.select(this.parentNode).attr("continentFile");
 
@@ -299,7 +305,7 @@ function handleContinentClick(continent) {
     // Nulstil eller opdater årsvælgeren for det nye kontinent
     // Du skal tilføje logik her for at håndtere årsvælgeren
     // Scroll to a generic container class for all continents
-    $("html, body").animate({ scrollTop: $(".container").offset().top }, 500);
+    $("html, body").animate({ scrollTop: $(".container").offset().top }, 1000);
   } else {
     console.error(`Endpoint for ${continent} not found.`);
   }
@@ -325,6 +331,12 @@ function clearYearSelector() {
     selector.remove(0);
   }
 }
+
+document.querySelectorAll(".box").forEach((box) => {
+  box.addEventListener("click", () => {
+    box.classList.toggle("expanded");
+  });
+});
 
 // Denne funktion organiserer opdateringen af alle bokse baseret på det valgte år.
 function updateBoxContent(data, selectedIndex) {
