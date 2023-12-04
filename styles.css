@@ -181,3 +181,35 @@ h3 {
 .continent-highlight {
   fill: black;
 }
+
+.grafer {
+  align-items: center;
+  padding: 100px;
+  position: relative; /* Add relative positioning */
+}
+
+#my_dataviz1 h1 {
+  position: absolute; /* Change to absolute positioning */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  margin: 20px 0;
+  z-index: 1000; /* Make sure it's above other elements */
+}
+
+#my_dataviz2 h1 {
+  position: absolute; /* Change to absolute positioning */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  margin: 20px 0;
+  z-index: 1000; /* Make sure it's above other elements */
+}
