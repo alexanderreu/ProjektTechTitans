@@ -437,6 +437,7 @@ fetch("http://localhost:3001/global_plastic")
 function clearAndShowDiagramGlobal(dataArray) {
   // Clear existing content
   d3.select("#my_dataviz2").select("svg").remove();
+  d3.select("#my_dataviz2").select("h1").remove();
 
   // Dimensioner og margener for global
   var margin = { top: 50, right: 50, bottom: 120, left: 100 },
@@ -485,14 +486,23 @@ function clearAndShowDiagramGlobal(dataArray) {
   svg4.append("g").call(d3.axisLeft(y4));
 
   // Y-akse label for global
+  d3.select("#my_dataviz2")
+    .append("h1")
+    .style("text-align", "center")
+    .style("font-family", "Arial, sans-serif")
+    .style("font-size", "24px")
+    .style("margin", "20px 0")
+    .text("Global plastikproduktion");
+
   svg4
     .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left)
-    .attr("x", 0 - height / 2)
+    .attr("class", "y-axis-label")
+    .attr("transform", "rotate(0)")
+    .attr("y", -30)
+    .attr("x", -5)
     .attr("dy", "1em")
     .style("text-anchor", "middle")
-    .text("Global plastikproduktion i tons");
+    .text("Tons");
 
   // Bars for global
   svg4
@@ -547,16 +557,11 @@ function clearAndShowDiagramGlobal(dataArray) {
     });
 }
 const labelTextMap = {
-  Americas_eo:
-    "Lande i Amerika og deres andel af plastikforurening i havene, målt i procent",
-  Asia_eo:
-    "Lande i Asien og deres andel af plastikforurening i havene, målt i procent",
-  Europe_eo:
-    "Lande i Europa og deres andel af plastikforurening i havene, målt i procent",
-  Oceania_eo:
-    "Lande i Oceanien og deres andel af plastikforurening i havene, målt i procent",
-  Africa_eo:
-    "Lande i Afrika og deres andel af plastikforurening i havene, målt i procent",
+  Americas_eo: "Lande i Amerika og deres andel af plastikforurening i havene",
+  Asia_eo: "Lande i Asien og deres andel af plastikforurening i havene",
+  Europe_eo: "Lande i Europa og deres andel af plastikforurening i havene",
+  Oceania_eo: "Lande i Oceanien og deres andel af plastikforurening i havene",
+  Africa_eo: "Lande i Afrika og deres andel af plastikforurening i havene",
 };
 
 // Function to fetch data and display diagram based on continent
@@ -588,7 +593,9 @@ function fetchDataAndDisplayDiagram(continent) {
 // Funktion laves for det femte diagram (Afrika og Mellemøsten)
 function clearAndShowDiagram(dataArray, labelText) {
   // Clear existing content
+  d3.select("#my_dataviz2").select("h1").remove();
   d3.select("#my_dataviz1").select("svg").remove();
+  d3.select("#my_dataviz1").select("h1").remove();
 
   // Dimensioner og margener for det femte diagram (Afrika og Mellemøsten)
   var margin = { top: 50, right: 50, bottom: 120, left: 80 },
@@ -636,33 +643,25 @@ function clearAndShowDiagram(dataArray, labelText) {
 
   svg5.append("g").call(d3.axisLeft(y5));
 
-  // Y-akse label for det femte diagram
-  var yLabel = svg5.select(".y-axis-label");
-  if (yLabel.empty()) {
-    svg5
-      .append("text")
-      .attr("class", "y-axis-label")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left)
-      .attr("x", 0 - height / 2)
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .text(labelText);
-  } else {
-    yLabel.text(labelText);
-  }
+  d3.select("#my_dataviz1")
+    .append("h1")
+    .style("text-align", "center")
+    .style("font-family", "Arial, sans-serif")
+    .style("font-size", "24px")
+    .style("margin", "20px 0")
+    .text(labelText);
 
   svg5
     .append("text")
     .attr("class", "y-axis-label")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left)
-    .attr("x", 0 - height / 2)
+    .attr("transform", "rotate(-180)")
+    .attr("y", +0)
+    .attr("x", +30)
     .attr("dy", "1em")
     .style("text-anchor", "middle")
-    .text(labelText); // Bruger labelText parameteren her
+    .text("%");
 
-  // Bars for det femte diagram (Afrika og Mellemøsten)
+  // Bars for det femte diagram
   svg5
     .selectAll("mybar")
     .data(dataArray)
@@ -676,8 +675,9 @@ function clearAndShowDiagram(dataArray, labelText) {
     .attr("height", 0)
     .attr("y", height)
 
-    // Tooltip for Afrika og Mellemøsten chart
+    // Tooltip for barchart med information om hvert land i kontinentet og dets andel af plastikforurening ved mouseover hændelse.
     .on("mouseover", function (event, d) {
+      // definerer en funktion, der håndterer mouseover-hændelsen.
       console.log(
         "Mouseover event triggered for Afrika og Mellemøsten:",
         event,
@@ -685,35 +685,47 @@ function clearAndShowDiagram(dataArray, labelText) {
       );
       const tooltip = d3.select("#tooltip");
 
+      //starter en overgangsanimation for tooltip'ens gennemsigtighed.
       tooltip.transition().duration(200).style("opacity", 0.9);
 
+      /*Når brugeren fører musen hen over et element i visualiseringen vises en lille boks tæt på musen
+      Den viser specifik information om det pågældende land og dets andel af plastikforurenin.*/
       tooltip
         .html(
           `<strong>Land:</strong> ${
             d.entity
+            //"d.entity" sørger for at det land der vises i tooltippen er bundet til det element musen føres hen over.
           }<br><strong>Andel af plastikforurening:</strong> ${parseFloat(
             d.share_of_global_plastics_emittet_to_ocean
           ).toFixed(2)}%`
+          //Konverter dataen til et tal vha. parseFloat og sætter tallet til 2 decimaler.
         )
+        //Sørger for at tooltippens position er nær musen ved mouseover hændelsen.
         .style("left", event.pageX + "px")
         .style("top", event.pageY - 28 + "px");
     })
-
+    //Fjerner tooltip, når musen forlader elementet.
     .on("mouseout", function () {
       const tooltip = d3.select("#tooltip");
 
+      //starter en overgangsanimation med en avrighed sat til 500 millisekunder der ændrer gennemsigtigheden
       tooltip.transition().duration(500).style("opacity", 0);
     })
 
-    // Animation for det femte diagram (Afrika og Mellemøsten)
+    //Animation for det femte diagram
+    //Definerer en animation, der varer 800 millisekunder for hvert rektangel.
     .transition()
     .duration(800)
+    //Bestemmer positionen af hvert rektangel baseret på data
     .attr("y", function (d) {
       return y5(d.share_of_global_plastics_emittet_to_ocean);
     })
+    //Bestemmer højden af hvert rektangel baseret på data
     .attr("height", function (d) {
       return height - y5(d.share_of_global_plastics_emittet_to_ocean);
     })
+    /*funktion, der bliver kaldt for hvert element. Funktionen modtager to argumenter, d og i
+    Forsinkelsen af animationen i millisekunder. For hvert element stiger forsinkelsen med 100 millisekunder.*/
     .delay(function (d, i) {
       return i * 100;
     });
