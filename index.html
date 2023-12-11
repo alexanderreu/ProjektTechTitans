@@ -11,20 +11,24 @@
     <title>Plastikforurening</title>
   </head>
   <body>
+    <!--Header-->
     <h1>Plastikforurening på verdensplan</h1>
 
     <!-- top-bar -->
     <div class="top-bar">
       <div class="menu">
+        <!--Onclick link der genindlæser siden-->
         <a href="#Hjem">Hjem</a>
+        <!--Onclick link der viser håndtering af plastik-->
         <a href="#Håndtering af plastik">Håndtering af plastik</a>
+        <!--Onclick link der viser plastik i havet-->
         <a href="#Plastik i havet">Plastik i havet </a>
       </div>
     </div>
 
-    <!-- Section 1: Map Container -->
-
+    <!--Underoverskrift/header3-->
     <h3>Vælge det kontinent du gerne vil vide mere om</h3>
+    <!-- Section 1: Map Container -->
     <div id="map-container"></div>
 
     <!-- Section 2: Year Selector and Boxes -->
@@ -33,7 +37,9 @@
       <p id="kliktext">
         Klik på symbolerne til venstre for at se håndteringen af plastik
       </p>
+      <!--Videoplayer: Her vises videoen-->
       <div class="video-container">
+        <!--Viser en anden html side i vores html side-->
         <iframe
           width="940"
           height="530"
@@ -43,12 +49,19 @@
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen
         ></iframe>
+        <!--Button til vores graf-->
         <button id="scrollToGraphsBtn">Se grafen</button>
       </div>
+      <!--Button til valg af årstal-->
       <select id="yearSelector"></select>
+      <!--Tilføjer box class til vores data, som så vises efter årsstal-->
+      <!--Denne box viser waste recycled ever årsstal-->
       <div class="box" id="box_recycled">Recycled</div>
+      <!--Denne box viser waste incinerated efter årsstal-->
       <div class="box" id="box_incinerated">Incinirated</div>
+      <!--Denne box viser mismanaged/littered waste efter årsstal-->
       <div class="box" id="box_mismanaged_littered">Mismanaged/Littered</div>
+      <!--Denne box viser landfilled waste efter årsstal-->
       <div class="box" id="box_landfilled">Landfilled</div>
     </div>
 
@@ -59,6 +72,7 @@
     </div>
 
     <div class="tooltip" id="tooltip"></div>
+    <!--Button for at komme tilbage til toppen-->
     <button id="backToTopBtn">Tilbage til toppen</button>
 
     <script src="script.js" class="my-script"></script>
