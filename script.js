@@ -59,10 +59,11 @@ $(document).ready(function () {
 });
 
 // Der defineres en variabel med vores localhost for world_fate, som skal bruges senere i vores script
-let endpointUrl = "http://localhost:3001/Wor_f";
+let endpointUrl = "https://plastikforurening-server.onrender.com/Wor_f";
 
 // Der defineres en variabel med vores localhost for global_plastic, som skal bruges senere i vores script
-let endpointUrlWorld = "http://localhost:3001/global_plastic";
+let endpointUrlWorld =
+  "https://plastikforurening-server.onrender.com/global_plastic";
 
 // Her defineres vores tooltip, som bruges senere til visning af grafer. Den vil indstil videre være usynlig
 const tooltip = d3
@@ -307,9 +308,9 @@ function handleContinentClick(continent) {
 /*Din generelle funktion til at hente og vise data.
 Definerer en funktion kaldet fetchAndDisplayData med to parametre: endpoint og containerPrefix*/
 function fetchAndDisplayData(endpoint, containerPrefix) {
-  /*Udfører en forespørgsel til den specificerede URL, som kombinerer en base-URL (http://localhost:3001/) med endpoint-parameteren. 
+  /*Udfører en forespørgsel til den specificerede URL, som kombinerer en base-URL (https://plastikforurening-server.onrender.com/) med endpoint-parameteren. 
   Denne forespørgsel henter data fra vores lokale server.*/
-  fetch(`http://localhost:3001/${endpoint}`)
+  fetch(`https://plastikforurening-server.onrender.com/${endpoint}`)
     //Når serveren svarer, konverteres svaret til JSON-format
     .then((response) => response.json())
     //Efter konvertering af svaret til JSON, håndteres dataene i denne blok
@@ -450,7 +451,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Fetcher global data fra den angivet url
-fetch("http://localhost:3001/global_plastic")
+fetch("https://plastikforurening-server.onrender.com/global_plastic")
   //.then metoden tager svaret og forsøger at parse det som JSON
   .then((response) => response.json())
   //.then() metode bruges her til at arbejde med de parsed JSON data.
@@ -665,7 +666,7 @@ const labelTextMap = {
 Funktionen fetchDataAndDisplayDiagram og tager en parameter: continent*/
 function fetchDataAndDisplayDiagram(continent) {
   // Opretter URL til API-endpoint baseret på det valgte kontinent
-  const endpoint = `http://localhost:3001/${continent}_eo`;
+  const endpoint = `https://plastikforurening-server.onrender.com/${continent}_eo`;
   // Udfører en fetch forespørgsel til det oprettede endpoint
   fetch(endpoint)
     // Konverterer svaret fra serveren til JSON
