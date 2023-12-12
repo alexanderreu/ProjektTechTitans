@@ -829,7 +829,7 @@ function clearAndShowDiagram(dataArray, labelText) {
     // Sætter bredden på rektanglet
     .attr("width", x5.bandwidth())
     // Farven af rektanglet
-    .attr("fill", "#42280E")
+    .attr("fill", "#513918")
     // Søjlen starter på 0 for animation
     .attr("height", 0)
     // Y-kordinaten sættes til bunden af SVG-elementet
