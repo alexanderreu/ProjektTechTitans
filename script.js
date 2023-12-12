@@ -599,7 +599,7 @@ function clearAndShowDiagramGlobal(dataArray) {
     // Sætter bredden for hver søjle baseret på den forudbestemte båndbredde af x4-skalaen
     .attr("width", x4.bandwidth())
     // Farver søjlerne med en bestemt farvekode
-    .attr("fill", "#42280E")
+    .attr("fill", "#513918")
     // Initialiserer søjlernes højde til 0 (vil sandsynligvis blive animeret senere)
     .attr("height", 0)
     // Sætter startpositionen for y (toppen af hver søjle) til bunden af diagrammet
