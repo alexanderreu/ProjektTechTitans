@@ -287,7 +287,7 @@ function handleContinentClick(continent) {
     World: "Wor_f",
   };
 
-  // Find det relevante endpoint baseret på det valgte kontinent
+  // Finder det relevante endpoint baseret på det valgte kontinent
   const endpoint = endpoints[continent];
 
   // Hvis et gyldigt endpoint findes, opdateres data og vises i boksen
@@ -295,10 +295,10 @@ function handleContinentClick(continent) {
     console.log("update");
     fetchAndDisplayData(endpoint, "box");
 
-    // Nulstil eller opdater årsvælgeren for det nye kontinent
-    // Du skal tilføje logik her for at håndtere årsvælgeren
+    // Nulstiller eller opdater årsvælgeren for det nye kontinent
+    // Tilføjer logikken her for at håndtere årsvælgeren
 
-    // Rul til en generisk containerklasse for alle kontinenter med en animation over 1000 ms
+    // Ruller til en generisk containerklasse for alle kontinenter med en animation over 1000 ms
     $("html, body").animate({ scrollTop: $(".container").offset().top }, 1000);
   } else {
     // Hvis der ikke findes et endpoint for det valgte kontinent, udskrives en fejlmeddelelse i konsollen
