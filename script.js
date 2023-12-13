@@ -25,19 +25,19 @@ $(document).ready(function () {
   });
 });
 
-// Lyt efter klik på knappen
+// Lytter efter klik på knappen
 $("#scrollToGraphsBtn").on("click", function () {
-  // Rul ned til graferne over 500 millisekunder
+  // Ruller ned til graferne over 500 millisekunder
   $("html, body").animate({ scrollTop: $(".grafer").offset().top }, 500);
 });
 
 $(document).ready(function () {
-  // Lyt efter klik på "Håndtering af plastik"-menuvalget
+  // Lytter efter klik på "Håndtering af plastik"-menuvalget
   $('a[href="#Plastik i havet"]').on("click", function (event) {
-    // Forhindre standard klikadfærd
+    // Forhindrer standard klikadfærd
     event.preventDefault();
 
-    // Rul ned til containeren over 500 millisekunder
+    // Ruller ned til containeren over 500 millisekunder
     $("html, body").animate({ scrollTop: $(".grafer").offset().top }, 500);
   });
 });
@@ -52,7 +52,7 @@ $(document).ready(function () {
     }
   });
 
-  // Rul til toppen ved klik på knappen
+  // Ruller til toppen ved klik på knappen
   $("#backToTopBtn").click(function () {
     $("html, body").animate({ scrollTop: 0 }, 500);
   });
