@@ -80,7 +80,7 @@ h3 {
   left: 50%; /* Placerer element */
   margin-top: 40px; /* Justerer øverste margin */
   transform: translate(-50%, -50%); /* Centrerer vandret og lodret */
-  padding: 10px; /* Afstand og indrykning af elementerne */
+  padding: 10px; /* Afstand mellem elementerne */
   border-radius: 5px; /* Tilpasning af hjørner */
   font-family: "Helvetica", sans-serif; /* Skrifttypen */
   font-weight: bold; /* Gør overskriften fed */
@@ -110,7 +110,7 @@ h3 {
   bottom: 10px; /* Afstand fra bunden */
   left: 50%; /* Placerer element */
   transform: translateX(-50%); /* Centrerer element vandret */
-  padding: 10px; /* Afstand og indrykning af elementerne */
+  padding: 10px; /* Afstand mellem elementerne */
   background-color: #007bff; /* Baggrundsfarve */
   color: #fff; /* Tekstfarve */
   border: none; /* Intet border */
@@ -126,7 +126,7 @@ h3 {
   display: flex;
   flex-direction: column;
   align-items: center; /* Centrerer elementerne vandret */
-  padding: 20px; /* Afstand og indrykning af elementerne */
+  padding: 20px; /* Afstand mellem elementerne */
 }
 
 #yearSelector:hover {
@@ -140,7 +140,7 @@ h3 {
 
 .boxContent {
   display: none; /* Skjuler indholdet i boksen som standard */
-  padding: 10px; /* Afstand og indrykning af elementerne */
+  padding: 10px; /* Afstand mellem elementerne */
 }
 
 .box.expanded .boxContent {
@@ -150,7 +150,7 @@ h3 {
 #tooltip {
   position: absolute; /* Positionerer tooltip absolut */
   background: #f4f4f4; /* Baggrundsfarve */
-  padding: 5px; /* Afstand og indrykning af elementerne */
+  padding: 5px; /* Afstand mellem elementerne */
   border: 1px solid #ccc; /* Tilpasning af border */
   border-radius: 3px; /* Tilpasning af hjørner */
   opacity: 0; /* Gør tooltippet gennemsigtig som standard */
@@ -164,7 +164,7 @@ h3 {
   right: 20px; /* Afstand fra højre */
   background-color: #007bff; /* Baggrundsfarve */
   color: #fff; /* Tekstfarve */
-  padding: 10px; /* Afstand og indrykning af elementerne */
+  padding: 10px; /* Afstand mellem elementerne */
   border: none; /* Tilpasning af border */
   border-radius: 5px; /* Tilpasning af hjørner */
   cursor: pointer; /* Viser, at boksen er klikbar */
@@ -176,7 +176,7 @@ h3 {
 
 .grafer {
   align-items: center; /* Centrerer elementerne vandret */
-  padding: 100px; /* Afstand og indrykning af elementerne */
+  padding: 100px; /* Afstand mellem elementerne */
   position: relative; /* Positionerer graferne relativ */
 }
 
@@ -186,7 +186,7 @@ h3 {
   top: 0; /* Placerer øverst */
   left: 50%; /* Centrerer horisontalt */
   transform: translateX(-50%); /* Justerer vandret for at centrere */
-  padding: 10px; /* Afstand og indrykning */
+  padding: 10px; /* Afstand mellem elementerne */
 
   font-family: Arial, sans-serif; /* Tekstype */
   font-size: 24px; /* Tekst tykkelse */
