@@ -140,7 +140,7 @@ Promise.all([
       og henter derefter værdien af attributten "continentFile". Denne værdi gemmes i variablen continent*/
       const continent = d3.select(this.parentNode).attr("continentFile");
 
-      // Nulstil farve for alle kontinenter
+      // Nulstiller farver for alle kontinenter
       d3.selectAll(".continent path").attr("fill", defaultColor);
 
       // Ændrer farven for det valgte kontinent
