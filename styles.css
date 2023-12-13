@@ -64,8 +64,8 @@ h3 {
 #yearSelector {
   align-items: center; /* Centrerer elementerne */
   justify-content: center; /* Centrerer elementerne */
-  transform: translateY(-50%); /* Placerer højden på elementet */
-  padding: 10px; /* Afstand og indrykning af elementerne */
+  transform: translateY(-50%); /* justere højden på elementet */
+  padding: 10px; /* Afstand mellem elementerne */
   background-color: #3498db; /* Baggrundsfarve */
   color: #fff; /* Tekstfarve */
   border-radius: 5px; /* Tilpasning af hjørner */
