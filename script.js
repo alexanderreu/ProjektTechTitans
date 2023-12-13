@@ -328,7 +328,7 @@ function fetchAndDisplayData(endpoint, containerPrefix) {
     .catch((error) => console.error("Error:", error));
 }
 
-// Tilføj denne nye funktion til at rydde årsvælgeren så vi undgår duplikater
+// Tilføjer denne nye funktion til at rydde årsvælgeren så vi undgår duplikater
 function clearYearSelector() {
   //Finder et HTML-element i dokumentet med id'et "yearSelector" og tilskriver det til variablen selector.
   const selector = document.getElementById("yearSelector");
@@ -348,7 +348,7 @@ document.querySelectorAll(".box").forEach((box) => {
   });
 });
 
-// definerer en funktion ved navn updateBoxContent, som tager to parametre: data og selectedIndex
+// Definerer en funktion ved navn updateBoxContent, som tager to parametre: data og selectedIndex
 function updateBoxContent(data, selectedIndex) {
   // Der oprettes en ny variabel selectedYearData, som henter datasættet for det specifikke år eller indeks, som brugeren har valgt.
   const selectedYearData = data[selectedIndex];
@@ -413,7 +413,7 @@ function updateSingleBoxContent(boxId, yearData, dataField, imagePath) {
   }
 }
 
-// når HTML-dokumentet er fuldt indlæst udløses 'DOMContentLoaded' eventen
+// Når HTML-dokumentet er fuldt indlæst udløses 'DOMContentLoaded' eventen
 document.addEventListener("DOMContentLoaded", () => {
   //Udfører en fetch til den url, der er gemt  i variablen 'endpointURL'
   fetch(endpointUrl)
