@@ -43,7 +43,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  // Vis/skjul knappen baseret på scrollpositionen
+  // Viser/skjuler knappen baseret på scrollpositionen
   $(window).scroll(function () {
     if ($(this).scrollTop() > 100) {
       $("#backToTopBtn").fadeIn();
@@ -118,21 +118,21 @@ Promise.all([
     .selectAll("path")
     .data(continentsData)
     .enter()
-    // Opret et nyt gruppeelement ("g") for hver data-post og tilføj klassen "continent"
+    // Opretter et nyt gruppeelement ("g") for hver data-post og tilføjer klassen "continent"
     .append("g")
     .attr("class", "continent")
-    // Tilføj attributten "continentFile" til hver gruppe med kontinentet for det valgte land
+    // Tilføjer attributten "continentFile" til hver gruppe med kontinentet for det valgte land
     .attr("continentFile", (d) => d.features[0].properties.continent)
 
     // Indlejrer en ny selektion inden i hver gruppe og tilknytter features fra den geografiske data
     .selectAll("path")
     .data((d) => d.features)
     .enter()
-    // Opret et nyt path element for hver feature
+    // Opretter et nyt path element for hver feature
     .append("path")
-    // Sæt attributten "d" for hvert path element til dataen fra "path"
+    // Sættter attributten "d" for hvert path element til dataen fra "path"
     .attr("d", path)
-    // Sæt farveattributten "fill" for hvert path element til defaultColor
+    // Sætter farveattributten "fill" for hvert path element til defaultColor
     .attr("fill", defaultColor)
     // Tilføjer en klikhændelse til hvert path element
     .on("click", function (event, d) {
@@ -248,23 +248,23 @@ function fillYearSelector(data) {
 
   // Iterér gennem hvert år i det leverede data-array
   data.forEach((yearData, index) => {
-    // Opret et nyt HTML-option-element
+    // Opretter et nyt HTML-option-element
     let option = document.createElement("option");
 
-    // Brug indexet af data-arrayet som værdi for hvert år
+    // Bruger indexet af data-arrayet som værdi for hvert år
     option.value = index;
 
-    // Vis årstallet som tekst i det oprettede option-element
+    // Viser årstallet som tekst i det oprettede option-element
     option.text = yearData.year;
 
-    // Tilføj det oprettede option-element til årsvælgeren
+    // Tilføjer det oprettede option-element til årsvælgeren
     selector.appendChild(option);
   });
 
-  // Sæt værdien af årsvælgeren til det første år i data-arrayet
+  // Sætter værdien af årsvælgeren til det første år i data-arrayet
   selector.value = 0;
 
-  // Sæt en event listener til at opdatere boksene, når et nyt år vælges i årsvælgeren
+  // Sætter en event listener til at opdatere boksene, når et nyt år vælges i årsvælgeren
   selector.addEventListener("change", (event) => {
     // Opdater boksens indhold baseret på det valgte år
     updateBoxContent(data, event.target.value);
