@@ -49,7 +49,7 @@ h3 {
 
 #map-container {
   background-color: lightskyblue; /* Baggrundsfarven bag kortet */
-  padding: 20px; /* Afstand og indrykning af elementerne */
+  padding: 20px; /* Afstand mellem elementerne */
   text-align: center; /* Centrerer teksten */
   box-shadow: 0px 5px 5px -5px #333; /* Skyggeeffekt mellem sektioner */
 }
