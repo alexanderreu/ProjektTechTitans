@@ -1,13 +1,13 @@
 $(document).ready(function () {
-  // Lyt efter klik på "Hjem"-menuvalget
+  // Lytter efter klik på "Hjem"-menuvalget
   $('a[href="#Hjem"]').on("click", function (event) {
-    // Forhindre standard klikadfærd
+    // Forhindrer standard klikadfærd
     event.preventDefault();
 
-    // Rul til toppen af siden over 500 millisekunder
+    // Ruller til toppen af siden over 500 millisekunder
     $("html, body").animate({ scrollTop: 0 }, 500);
 
-    // Vent 600 millisekunder og genindlæs siden
+    // Venter 600 millisekunder og genindlæser siden
     setTimeout(function () {
       location.reload();
     }, 600);
@@ -15,12 +15,12 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-  // Lyt efter klik på "Håndtering af plastik"-menuvalget
+  // Lytter efter klik på "Håndtering af plastik"-menuvalget
   $('a[href="#Håndtering af plastik"]').on("click", function (event) {
-    // Forhindre standard klikadfærd
+    // Forhindrer standard klikadfærd
     event.preventDefault();
 
-    // Rul ned til containeren over 500 millisekunder
+    // Ruller ned til containeren over 500 millisekunder
     $("html, body").animate({ scrollTop: $(".container").offset().top }, 500);
   });
 });
