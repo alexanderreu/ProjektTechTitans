@@ -136,7 +136,8 @@ Promise.all([
     .attr("fill", defaultColor)
     // Tilføjer en klikhændelse til hvert path element
     .on("click", function (event, d) {
-      // Henter kontinentet baseret på den overordnede gruppe ("g")
+      /*Inde i klikfunktionen, vælges det overordnede element for det klikkede path-element,
+      og henter derefter værdien af attributten "continentFile". Denne værdi gemmes i variablen continent*/
       const continent = d3.select(this.parentNode).attr("continentFile");
 
       // Nulstil farve for alle kontinenter
