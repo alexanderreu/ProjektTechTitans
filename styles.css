@@ -57,7 +57,7 @@ h3 {
 .container {
   text-align: center; /* Centrerer teksten  */
   position: relative; /* Gør container relativ */
-  padding: 10px 10px 60px; /* Afstand og indrykning af elementerne i containeren */
+  padding: 10px 10px 60px; /* Afstand mellem elementerne i containeren */
   box-shadow: 0px 5px 5px -5px #333; /* Skyggeeffekt mellem sektioner */
 }
 
